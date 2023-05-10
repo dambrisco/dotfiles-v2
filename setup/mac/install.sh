@@ -37,16 +37,16 @@ then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-brew bundle --file=base.Brewfile install
+brew bundle --file=brew/base.rb install
 
 defaultbrowser firefox
 
 if [[ -n "$personal" ]]
 then
-  brew bundle --file=personal.Brewfile install
+  brew bundle --file=brew/personal.rb install
 fi
 
 if [[ -n "$work" ]]
 then
-  brew bundle --file=work.Brewfile install
+  brew bundle --file=brew/work.rb install
 fi
