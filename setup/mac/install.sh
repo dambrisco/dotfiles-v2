@@ -1,5 +1,7 @@
 #!/bin/bash
 set -eu -o pipefail
+# Set working directory to file dir
+cd "${0%/*}"
 
 personal=
 work=

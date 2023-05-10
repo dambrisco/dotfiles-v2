@@ -12,5 +12,6 @@ cask "firefox"
 cask "bitwarden"
 cask "spotify"
 cask "docker"
+cask "visual-studio-code"
 
 brew "defaultbrowser"
