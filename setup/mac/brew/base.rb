@@ -4,14 +4,19 @@ tap "homebrew/bundle"
 
 brew "git"
 brew "jq"
+brew "docker"
+brew "colima"
 
-cask "iterm2"
 cask "alfred"
-cask "rectangle"
-cask "firefox"
 cask "bitwarden"
+cask "firefox"
+# `force: true` required to handle no sha
+cask "google-chrome", args: { force: true }
+cask "iterm2"
+cask "rectangle"
+cask "slack"
 cask "spotify"
-cask "docker"
 cask "visual-studio-code"
+cask "zoom"
 
 brew "defaultbrowser"

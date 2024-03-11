@@ -14,13 +14,28 @@ while [[ $# -gt 0 ]]; do
       set -x
       shift
       ;;
-    -p|--personal)
-      personal=1
+    -p|--profile)
       shift
-      ;;
-    -w|--work)
-      work=1
-      shift
+      if [[ $# -gt 0 ]]
+      then
+        read -a profiles <<< $(echo "$1" | xargs | tr "," "\n")
+        for v in "${profiles[@]}"
+        do
+          case $v in
+            personal)
+              personal=1
+              ;;
+            work)
+              work=1
+              ;;
+            *)
+              echo "Profile \"$v\" is unknown"
+              exit 1
+              ;;
+          esac
+        done
+        shift
+      fi
       ;;
     -*|--*)
       echo "Unknown option $1"
@@ -39,8 +54,6 @@ fi
 
 brew bundle --file=brew/base.rb install
 
-defaultbrowser firefox
-
 if [[ -n "$personal" ]]
 then
   brew bundle --file=brew/personal.rb install
@@ -50,3 +63,10 @@ if [[ -n "$work" ]]
 then
   brew bundle --file=brew/work.rb install
 fi
+
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+defaultbrowser firefox
+
+plutil -convert binary1 -o ~/Library/Preferences/com.runningwithcrayons.Alfred-Preferences.plist ./prefs/alfred/Alfred-Preferences.plist
+plutil -convert binary1 -o ~/Library/Preferences/com.runningwithcrayons.Alfred.plist ./prefs/alfred/Alfred.plist
