@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -21,10 +21,19 @@
       v = "nvim";
       cat = "bat --plain";
     };
-    initContent = ''
-      bindkey -e
-      setopt AUTO_CD EXTENDED_HISTORY HIST_IGNORE_DUPS SHARE_HISTORY
-    '';
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
+        fpath=(
+          /opt/homebrew/share/zsh/site-functions
+          /opt/homebrew/share/zsh-completions
+          $fpath
+        )
+      '')
+      ''
+        bindkey -e
+        setopt AUTO_CD EXTENDED_HISTORY HIST_IGNORE_DUPS SHARE_HISTORY
+      ''
+    ];
   };
 
   programs.starship = {
@@ -48,7 +57,10 @@
     enableZshIntegration = true;
   };
 
-  programs.eza.enable = true;
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+  };
   programs.bat.enable = true;
 
   home.packages = with pkgs; [
@@ -62,5 +74,9 @@
     colima
     docker-client
     docker-compose
+    docker-buildx
   ];
+
+  home.file.".docker/cli-plugins/docker-buildx".source =
+    "${pkgs.docker-buildx}/bin/docker-buildx";
 }
