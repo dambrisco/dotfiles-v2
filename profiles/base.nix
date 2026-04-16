@@ -8,7 +8,6 @@
     "rectangle"
     "slack"
     "spotify"
-    "zoom"
     "ghostty"
     "visual-studio-code"
   ];

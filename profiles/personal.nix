@@ -4,6 +4,5 @@
     "signal"
     "steam"
     "discord"
-    "eve-launcher"
   ];
 }
