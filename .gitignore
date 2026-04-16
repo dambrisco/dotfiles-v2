@@ -1,2 +1,4 @@
 *.swp
-*.lock.json
+.DS_Store
+result
+result-*
