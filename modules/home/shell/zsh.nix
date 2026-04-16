@@ -59,5 +59,8 @@
     htop
     wget
     curl
+    colima
+    docker-client
+    docker-compose
   ];
 }
