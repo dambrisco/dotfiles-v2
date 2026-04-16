@@ -6,6 +6,10 @@
     prefix=${config.home.homeDirectory}/.npm-global
   '';
 
+  home.file.".claude/settings.json".text = builtins.toJSON {
+    model = "opus";
+  };
+
   home.activation.installClaudeCode =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       NPM_PREFIX="${config.home.homeDirectory}/.npm-global"
