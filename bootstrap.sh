@@ -96,9 +96,16 @@ while [[ $# -gt 0 ]]; do
 done
 
 # --- Phase 4: brew bundle --------------------------------------------------
-brew bundle --file=brew/base.rb install
-[[ -n "$personal" ]] && brew bundle --file=brew/personal.rb install
-[[ -n "$work"     ]] && brew bundle --file=brew/work.rb install
+# Individual formula failures shouldn't abort the rest of bootstrap; log and continue.
+run_bundle() {
+  local file=$1
+  if ! brew bundle --file="$file" install; then
+    echo "Warning: 'brew bundle --file=$file install' reported failures; continuing." >&2
+  fi
+}
+run_bundle brew/base.rb
+[[ -n "$personal" ]] && run_bundle brew/personal.rb
+[[ -n "$work"     ]] && run_bundle brew/work.rb
 
 # --- Phases 5-7: link + claude + macOS defaults ----------------------------
 bash lib/link.sh
