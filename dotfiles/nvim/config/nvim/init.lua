@@ -107,6 +107,44 @@ require("lazy").setup({
       },
     },
   },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      on_attach = function(bufnr)
+        local gs = require("gitsigns")
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+        end
+        map("n", "]c", function() gs.nav_hunk("next") end, "Next hunk")
+        map("n", "[c", function() gs.nav_hunk("prev") end, "Prev hunk")
+        map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
+        map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
+        map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
+        map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame line")
+      end,
+    },
+  },
+
+  { "kylechui/nvim-surround", version = "*", event = "VeryLazy", opts = {} },
+
+  -- nvim-autopairs over mini.pairs: treesitter-aware, skips pairing inside
+  -- strings/comments, and integrates with nvim-cmp if we add completion later.
+  { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VeryLazy",
+    opts = {
+      options = {
+        theme = "gruvbox",
+        section_separators = "",
+        component_separators = "",
+      },
+    },
+  },
 })
 
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write" })
