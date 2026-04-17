@@ -53,6 +53,15 @@ bindkey -v
 # Use emacs mode
 # bindkey -e
 
+# vi-insert's defaults for backspace/ctrl-w/ctrl-u refuse to delete past the
+# column where insert mode began — so re-entering insert mode with `i` leaves
+# you unable to erase anything that was already on the line. Rebind to the
+# non-vi variants which have no such restriction.
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^H' backward-delete-char
+bindkey -M viins '^W' backward-kill-word
+bindkey -M viins '^U' backward-kill-line
+
 # Shrink the Esc-sequence grace period from 400ms to 10ms so switching to
 # normal mode feels instant. Low enough values can break Alt-prefixed
 # keybindings (which arrive as "Esc + X") — bump to 10 in ~/.zshrc.local if
