@@ -7,8 +7,12 @@ prefs_dir="$script_dir/../prefs"
 
 defaults write -g ApplePressAndHoldEnabled -bool false
 
-if hash defaultbrowser 2>/dev/null; then
-  defaultbrowser firefox
+# Set Firefox as default browser, but only when the current default is Safari
+# (or unset on a fresh install). lib/default-browser.py edits the LaunchServices
+# plist directly, replacing the unmaintained brew `defaultbrowser` binary.
+current_browser="$("$script_dir/default-browser.py" get 2>/dev/null || true)"
+if [[ -z "$current_browser" || "$current_browser" == "com.apple.safari" ]]; then
+  "$script_dir/default-browser.py" set org.mozilla.firefox
 fi
 
 # Remap Caps Lock -> Escape. hidutil applies immediately but resets on reboot,

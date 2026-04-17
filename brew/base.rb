@@ -37,5 +37,3 @@ cask "spotify", args: { force: true }
 cask "visual-studio-code"
 # Zoom is often pre-provisioned via MDM; skip install if already present.
 cask "zoom" unless File.exist?("/Applications/zoom.us.app")
-
-brew "defaultbrowser"
