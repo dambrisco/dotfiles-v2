@@ -50,6 +50,12 @@ done
 if ! hash brew 2>/dev/null
 then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # Wire brew onto PATH for the remainder of this session (Apple Silicon path).
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
 fi
 
 brew bundle --file=brew/base.rb install
@@ -64,9 +70,6 @@ then
   brew bundle --file=brew/work.rb install
 fi
 
-defaults write -g ApplePressAndHoldEnabled -bool false
-
-defaultbrowser firefox
-
-plutil -convert binary1 -o ~/Library/Preferences/com.runningwithcrayons.Alfred-Preferences.plist ./prefs/alfred/Alfred-Preferences.plist
-plutil -convert binary1 -o ~/Library/Preferences/com.runningwithcrayons.Alfred.plist ./prefs/alfred/Alfred.plist
+bash lib/link.sh
+bash lib/claude.sh
+bash lib/defaults.sh
