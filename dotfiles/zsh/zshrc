@@ -40,6 +40,22 @@ bindkey -v
 # Use emacs mode
 # bindkey -e
 
+# Cursor shape per vi mode via DECSCUSR: insert = blinking block,
+# normal = steady block. zle-line-init resets the cursor on every new
+# prompt (in case the previous foreground command left it weird).
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd)      printf '\e[2 q' ;;
+    main|viins) printf '\e[1 q' ;;
+  esac
+}
+zle -N zle-keymap-select
+
+function zle-line-init {
+  printf '\e[1 q'
+}
+zle -N zle-line-init
+
 # fzf keybindings (CTRL-R history, CTRL-T file, ALT-C cd) and completion.
 if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
