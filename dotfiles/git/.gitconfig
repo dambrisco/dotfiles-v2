@@ -1,0 +1,25 @@
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[core]
+	pager = less -FRX
+	editor = nvim
+[color]
+	ui = auto
+[push]
+	default = current
+	autoSetupRemote = true
+[merge]
+	conflictStyle = zdiff3
+[diff]
+	algorithm = histogram
+	colorMoved = default
+# User identity is intentionally omitted; set it per-machine via:
+#   git config --global user.name "..."
+#   git config --global user.email "..."
+# (stored in ~/.gitconfig.local if you prefer; uncomment the include below)
+# [include]
+# 	path = ~/.gitconfig.local

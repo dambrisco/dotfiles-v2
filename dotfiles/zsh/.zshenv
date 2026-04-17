@@ -1,0 +1,27 @@
+# Homebrew on Apple Silicon and Intel respectively.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+path=(
+  "$HOME/.local/bin"
+  "$HOMEBREW_PREFIX/bin"
+  "$HOMEBREW_PREFIX/sbin"
+  $path
+)
+
+# npm global bin (created on first `npm install -g`).
+if command -v npm >/dev/null 2>&1; then
+  npm_prefix="$(npm config get prefix 2>/dev/null)"
+  if [[ -n "$npm_prefix" && -d "$npm_prefix/bin" ]]; then
+    path=("$npm_prefix/bin" $path)
+  fi
+fi
+
+typeset -U path
+export PATH
