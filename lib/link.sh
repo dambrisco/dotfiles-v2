@@ -1,7 +1,9 @@
 #!/bin/bash
 # Symlinks every file under dotfiles/ into $HOME, preserving relative paths.
 #
-# Mapping: dotfiles/<pkg>/<relpath> -> $HOME/<relpath>
+# Mapping: dotfiles/<pkg>/<first>/<rest> -> $HOME/.<first>/<rest>
+# Tracked files are stored without the leading `.` on the first path segment
+# so they're easier to work with in editors/tooling; the dot is re-added here.
 # Idempotent: ln -sfn replaces existing symlinks; regular files (non-symlinks)
 # get backed up to <target>.backup-<ts> instead of being overwritten.
 #
@@ -22,10 +24,11 @@ ts="$(date +%Y%m%d%H%M%S)"
 
 while IFS= read -r -d '' src; do
   rel="${src#"$src_root"/}"
-  # Strip the leading <pkg>/ segment so dotfiles/nvim/.config/nvim/init.lua
-  # maps to $HOME/.config/nvim/init.lua.
+  # Strip the leading <pkg>/ segment and prepend `.` to the first remaining
+  # segment so dotfiles/nvim/config/nvim/init.lua maps to
+  # $HOME/.config/nvim/init.lua.
   rel_no_pkg="${rel#*/}"
-  target="$HOME/$rel_no_pkg"
+  target="$HOME/.$rel_no_pkg"
   target_dir="${target%/*}"
 
   mkdir -p "$target_dir"
