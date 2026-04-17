@@ -113,3 +113,14 @@ bash lib/link.sh
 bash lib/gen-gitconfig-includes.sh
 bash lib/claude.sh
 bash lib/defaults.sh
+
+# --- Phase 8: reload shell so new env/aliases take effect immediately -------
+# Interactive checkout run: exec the user's login shell, replacing this bash
+# process so the parent terminal sees the fresh env. Non-interactive
+# (curl|bash, CI) skips the exec and prints the manual command instead.
+if [[ -t 0 && -t 1 && -n "${SHELL:-}" ]]; then
+  echo "Bootstrap complete. Reloading shell..."
+  exec "$SHELL" -l
+else
+  echo "Bootstrap complete. Run 'exec \"\$SHELL\" -l' to reload your shell."
+fi
