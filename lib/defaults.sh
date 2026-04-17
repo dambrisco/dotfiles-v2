@@ -73,12 +73,18 @@ PLIST
 launchctl unload "$agent_plist" 2>/dev/null || true
 launchctl load "$agent_plist"
 
+# Alfred writes in-memory state back on exit; kill before overwriting and
+# bounce cfprefsd so the next read doesn't come from the prefs cache.
+killall Alfred 2>/dev/null || true
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.runningwithcrayons.Alfred-Preferences.plist" \
   "$prefs_dir/alfred/Alfred-Preferences.plist"
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.runningwithcrayons.Alfred.plist" \
   "$prefs_dir/alfred/Alfred.plist"
+killall cfprefsd 2>/dev/null || true
+# Launch by bundle ID so we're not coupled to the app name (e.g. "Alfred 5.app").
+open -b com.runningwithcrayons.Alfred 2>/dev/null || true
 
 # Rectangle reads prefs at launch and writes them back on exit, so kill it
 # before overwriting or a running instance will clobber our changes.
@@ -86,4 +92,5 @@ killall Rectangle 2>/dev/null || true
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.knollsoft.Rectangle.plist" \
   "$prefs_dir/rectangle/Rectangle.plist"
-open -a Rectangle 2>/dev/null || true
+killall cfprefsd 2>/dev/null || true
+open -b com.knollsoft.Rectangle 2>/dev/null || true
