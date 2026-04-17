@@ -10,7 +10,7 @@
 # against dotfiles/<pkg>/. `stow` is already installed via brew/base.rb.
 set -eu -o pipefail
 
-repo_root="$(cd "${0%/*}/../../.." && pwd)"
+repo_root="$(cd "${0%/*}/.." && pwd)"
 src_root="$repo_root/dotfiles"
 
 if [[ ! -d "$src_root" ]]; then
