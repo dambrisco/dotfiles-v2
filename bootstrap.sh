@@ -108,8 +108,8 @@ run_bundle brew/base.rb
 [[ -n "$work"     ]] && run_bundle brew/work.rb
 
 # --- Phases 5-7: link + claude + macOS defaults ----------------------------
-bash lib/link.sh
 bash lib/local.sh
+bash lib/link.sh
 bash lib/gen-gitconfig-includes.sh
 bash lib/claude.sh
 bash lib/defaults.sh

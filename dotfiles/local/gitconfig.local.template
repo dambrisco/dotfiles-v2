@@ -1,0 +1,2 @@
+# Included from ~/.gitconfig for per-machine overrides.
+# Typical use: signing keys, credential helpers. Not tracked by git.

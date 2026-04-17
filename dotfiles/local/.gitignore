@@ -1,0 +1,6 @@
+# Everything under dotfiles/local/ is machine-local except the templates.
+# lib/local.sh copies each *.template to its stripped name on bootstrap.
+*
+!*/
+!*.template
+!.gitignore

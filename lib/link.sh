@@ -23,6 +23,10 @@ fi
 ts="$(date +%Y%m%d%H%M%S)"
 
 while IFS= read -r -d '' src; do
+  # Templates under dotfiles/local/ are repo-internal; lib/local.sh copies
+  # them to their stripped filenames, and those copies get linked instead.
+  [[ "$src" == *.template ]] && continue
+
   rel="${src#"$src_root"/}"
   # Strip the leading <pkg>/ segment and prepend `.` to the first remaining
   # segment so dotfiles/nvim/config/nvim/init.lua maps to
