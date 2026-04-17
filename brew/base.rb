@@ -12,6 +12,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "eza"
 brew "bat"
+brew "git-delta"
 
 # Terminal + editor stack
 brew "neovim"
