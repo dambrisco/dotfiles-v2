@@ -5,6 +5,8 @@ SAVEHIST=50000
 setopt APPEND_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
 setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 
+export ANTHROPIC_MODEL=opus
+
 # Completions (brew-installed site-functions).
 if [[ -n "$HOMEBREW_PREFIX" ]]; then
   fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
@@ -31,4 +33,11 @@ if [[ -n "$GHOSTTY_RESOURCES_DIR" && -r "$GHOSTTY_RESOURCES_DIR/shell-integratio
   source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
 fi
 
-export ANTHROPIC_MODEL=opus
+# Refresh dotfile symlinks and generated git includes on shell start.
+# Runs in the background so it never blocks the prompt; both scripts are
+# idempotent and only rewrite outputs when contents change.
+if [[ -d "$HOME/dotfiles/lib" ]]; then
+  ( bash "$HOME/dotfiles/lib/link.sh" \
+      && bash "$HOME/dotfiles/lib/gen-gitconfig-includes.sh" ) \
+    >/dev/null 2>&1 &!
+fi
