@@ -33,6 +33,9 @@ if [[ -n "$GHOSTTY_RESOURCES_DIR" && -r "$GHOSTTY_RESOURCES_DIR/shell-integratio
   source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
 fi
 
+# Rebind specific keys after setting up Ghostty integration
+bindkey '^R' history-incremental-search-backward
+
 # Refresh dotfile symlinks and generated git includes on shell start.
 # Runs in the background so it never blocks the prompt; both scripts are
 # idempotent and only rewrite outputs when contents change.
