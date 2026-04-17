@@ -79,3 +79,10 @@ plutil -convert binary1 \
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.runningwithcrayons.Alfred.plist" \
   "$prefs_dir/alfred/Alfred.plist"
+
+# Rectangle reads prefs at launch and writes them back on exit, so kill it
+# before overwriting or a running instance will clobber our changes.
+killall Rectangle 2>/dev/null || true
+plutil -convert binary1 \
+  -o "$HOME/Library/Preferences/com.knollsoft.Rectangle.plist" \
+  "$prefs_dir/rectangle/Rectangle.plist"
