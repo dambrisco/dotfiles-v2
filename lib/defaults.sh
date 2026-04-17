@@ -86,3 +86,4 @@ killall Rectangle 2>/dev/null || true
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.knollsoft.Rectangle.plist" \
   "$prefs_dir/rectangle/Rectangle.plist"
+open -a Rectangle 2>/dev/null || true
