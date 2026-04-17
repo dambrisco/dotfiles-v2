@@ -23,7 +23,7 @@ brew "fd"
 brew "stow"
 
 cask "ghostty"
-cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
 
 cask "alfred"
 cask "bitwarden"
