@@ -24,6 +24,19 @@ mkdir -p "$HOME/Screenshots"
 defaults write com.apple.screencapture location -string "$HOME/Screenshots"
 killall SystemUIServer 2>/dev/null || true
 
+# Dock: left side, autohide, subtle magnification. largesize only slightly
+# above tilesize so hover bumps the icon rather than ballooning it.
+defaults write com.apple.dock orientation -string "left"
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock tilesize -int 48
+defaults write com.apple.dock largesize -int 56
+
+# Mission Control / Expose: snappier animations (default ~0.2s).
+defaults write com.apple.dock expose-animation-duration -float 0.1
+
+killall Dock 2>/dev/null || true
+
 # Set Firefox as default browser, but only when the current default is Safari
 # (or unset on a fresh install). lib/default-browser.py edits the LaunchServices
 # plist directly, replacing the unmaintained brew `defaultbrowser` binary.
