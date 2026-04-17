@@ -6,6 +6,11 @@ brew "jq"
 brew "docker"
 brew "colima"
 
+# Shell QoL.
+brew "fzf"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+
 # Terminal + editor stack
 brew "neovim"
 brew "node"

@@ -38,6 +38,20 @@ bindkey -v
 # Use emacs mode
 # bindkey -e
 
+# fzf keybindings (CTRL-R history, CTRL-T file, ALT-C cd) and completion.
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+
+# Autosuggestions before syntax-highlighting; the latter must be sourced last
+# so its ZLE widget wrappers see everything that came before.
+if [[ -r "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+if [[ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
 # Refresh dotfile symlinks and generated git includes on shell start.
 # Runs in the background so it never blocks the prompt; both scripts are
 # idempotent and only rewrite outputs when contents change.
