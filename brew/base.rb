@@ -10,6 +10,8 @@ brew "colima"
 brew "fzf"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+brew "eza"
+brew "bat"
 
 # Terminal + editor stack
 brew "neovim"

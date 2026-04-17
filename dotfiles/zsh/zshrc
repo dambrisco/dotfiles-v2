@@ -24,8 +24,10 @@ PROMPT='%F{cyan}%~%f%F{yellow}${vcs_info_msg_0_}%f %# '
 alias cc='claude'
 alias vi='nvim'
 alias vim='nvim'
-alias ls='ls -G'
-alias ll='ls -lah'
+alias ls='eza'
+alias ll='eza -lah --git'
+alias la='eza -la'
+alias cat='bat --paging=never'
 
 # Ghostty ships shell integration it auto-injects via GHOSTTY_RESOURCES_DIR;
 # source it explicitly as a belt-and-suspenders for non-login shells.
