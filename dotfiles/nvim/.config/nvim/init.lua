@@ -40,6 +40,7 @@ require("lazy").setup({
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -72,15 +73,12 @@ require("lazy").setup({
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      ensure_installed = { "lua_ls", "ts_ls", "pyright", "gopls", "rust_analyzer" },
-    },
-    config = function(_, opts)
-      require("mason-lspconfig").setup(opts)
-      local lspconfig = require("lspconfig")
-      for _, server in ipairs(opts.ensure_installed) do
-        lspconfig[server].setup({})
+    opts = function()
+      local servers = { "lua_ls", "ts_ls", "pyright", "rust_analyzer" }
+      if vim.fn.executable("go") == 1 then
+        table.insert(servers, "gopls")
       end
+      return { ensure_installed = servers }
     end,
   },
 
