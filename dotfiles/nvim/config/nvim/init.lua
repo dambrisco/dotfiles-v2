@@ -92,3 +92,9 @@ require("lazy").setup({
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
+
+-- Local, per-machine overrides. Sourced last so it can override anything above.
+local local_config = vim.fn.stdpath("config") .. "/init.local.lua"
+if (vim.uv or vim.loop).fs_stat(local_config) then
+  dofile(local_config)
+end

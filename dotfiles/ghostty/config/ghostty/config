@@ -20,3 +20,6 @@ keybind = cmd+w=close_surface
 quick-terminal-position = top
 quick-terminal-animation-duration = 0.1
 keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+# Machine-local overrides. `?` prefix makes the load optional.
+config-file = ?~/.config/ghostty/config.local

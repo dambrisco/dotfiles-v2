@@ -17,12 +17,6 @@
 [diff]
 	algorithm = histogram
 	colorMoved = default
-# User identity is intentionally omitted; set it per-machine via:
-#   git config --global user.name "..."
-#   git config --global user.email "..."
-# (stored in ~/.gitconfig.local if you prefer; uncomment the include below)
-# [include]
-# 	path = ~/.gitconfig.local
 [user]
 	name = DJ Ambrisco
 	email = dambrisco@gmail.com
@@ -31,3 +25,6 @@
 # subdirectories of ~/src/.
 [include]
 	path = ~/.gitconfig.d/includes
+# Machine-local overrides (signing keys, credential helpers, etc.).
+[include]
+	path = ~/.gitconfig.local

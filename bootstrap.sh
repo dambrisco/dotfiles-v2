@@ -109,6 +109,7 @@ run_bundle brew/base.rb
 
 # --- Phases 5-7: link + claude + macOS defaults ----------------------------
 bash lib/link.sh
+bash lib/local.sh
 bash lib/gen-gitconfig-includes.sh
 bash lib/claude.sh
 bash lib/defaults.sh

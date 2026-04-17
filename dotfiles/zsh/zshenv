@@ -25,3 +25,6 @@ fi
 
 typeset -U path
 export PATH
+
+# Local, per-machine overrides (PATH additions, secrets, etc.).
+[[ -r "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local"
