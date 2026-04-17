@@ -7,6 +7,17 @@ prefs_dir="$script_dir/../prefs"
 
 defaults write -g ApplePressAndHoldEnabled -bool false
 
+# Finder: show hidden files + path bar. Writes don't take effect until Finder
+# is relaunched, done at the bottom of this block.
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Skip .DS_Store droppings on network and USB volumes.
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+killall Finder 2>/dev/null || true
+
 # Set Firefox as default browser, but only when the current default is Safari
 # (or unset on a fresh install). lib/default-browser.py edits the LaunchServices
 # plist directly, replacing the unmaintained brew `defaultbrowser` binary.
