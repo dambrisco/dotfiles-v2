@@ -19,7 +19,7 @@ set -eu -o pipefail
 
 REPO="dambrisco/dotfiles-v2"
 BRANCH="${DOTFILES_BRANCH:-main}"
-CLONE_DIR="${DOTFILES_DIR:-$HOME/src/dotfiles-v2}"
+CLONE_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
 # --- Detect execution mode -------------------------------------------------
 # If this script sits next to brew/base.rb we're running from a checkout;
