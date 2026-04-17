@@ -1,5 +1,5 @@
 # set arguments for all 'brew install --cask' commands
-cask_args appdir: "~/Applications", require_sha: true
+cask_args appdir: "~/Applications", require_sha: true, adopt: true
 
 brew "git"
 brew "jq"
@@ -25,8 +25,9 @@ cask "firefox"
 cask "google-chrome", args: { force: true }
 cask "rectangle"
 cask "slack"
-cask "spotify"
+cask "spotify", args: { force: true }
 cask "visual-studio-code"
-cask "zoom"
+# Zoom is often pre-provisioned via MDM; skip install if already present.
+cask "zoom" unless File.exist?("/Applications/zoom.us.app")
 
 brew "defaultbrowser"
