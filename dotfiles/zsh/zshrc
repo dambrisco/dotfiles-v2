@@ -15,10 +15,23 @@ autoload -Uz compinit && compinit
 
 # Prompt: lightweight, no framework.
 autoload -Uz vcs_info
-precmd() { vcs_info }
+# precmd runs before each prompt is rendered; reset VI_MODE_INDICATOR here
+# (not in zle-line-init, which fires too late) so hitting Enter from normal
+# mode drops you back to [I] on the next line.
+precmd() {
+  vcs_info
+  VI_MODE_INDICATOR='%F{green}[I]%f'
+}
 zstyle ':vcs_info:git:*' formats ' (%b)'
 setopt PROMPT_SUBST
 PROMPT='%F{cyan}%~%f%F{yellow}${vcs_info_msg_0_}%f %# '
+
+# Vi-mode indicator: green [I] for insert, red [N] for normal. The variable
+# is re-set by zle-keymap-select below and only shown on the current line
+# (TRANSIENT_RPROMPT strips it from history).
+VI_MODE_INDICATOR='%F{green}[I]%f'
+RPROMPT='${VI_MODE_INDICATOR}'
+setopt TRANSIENT_RPROMPT
 
 # Aliases.
 alias cc='claude'
@@ -40,14 +53,23 @@ bindkey -v
 # Use emacs mode
 # bindkey -e
 
-# Cursor shape per vi mode via DECSCUSR: insert = blinking block,
-# normal = steady block. zle-line-init resets the cursor on every new
-# prompt (in case the previous foreground command left it weird).
+# Shrink the Esc-sequence grace period from 400ms to 10ms so switching to
+# normal mode feels instant. Low enough values can break Alt-prefixed
+# keybindings (which arrive as "Esc + X") — bump to 10 in ~/.zshrc.local if
+# you hit that.
+KEYTIMEOUT=1
+
+# Cursor shape + RPROMPT mode indicator, kept in sync per vi mode:
+# insert -> blinking block (\e[1 q) + green [I]
+# normal -> steady block   (\e[2 q) + red [N]
+# zle-line-init resets state on every new prompt so a previous foreground
+# command can't leave us in a weird cursor or stale indicator.
 function zle-keymap-select {
   case $KEYMAP in
-    vicmd)      printf '\e[2 q' ;;
-    main|viins) printf '\e[1 q' ;;
+    vicmd)      VI_MODE_INDICATOR='%F{red}[N]%f';   printf '\e[2 q' ;;
+    main|viins) VI_MODE_INDICATOR='%F{green}[I]%f'; printf '\e[1 q' ;;
   esac
+  zle reset-prompt
 }
 zle -N zle-keymap-select
 
