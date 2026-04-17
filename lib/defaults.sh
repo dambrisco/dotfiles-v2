@@ -18,6 +18,12 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 killall Finder 2>/dev/null || true
 
+# Route screenshots to ~/Screenshots instead of the Desktop. SystemUIServer
+# caches the location, so bounce it after writing.
+mkdir -p "$HOME/Screenshots"
+defaults write com.apple.screencapture location -string "$HOME/Screenshots"
+killall SystemUIServer 2>/dev/null || true
+
 # Set Firefox as default browser, but only when the current default is Safari
 # (or unset on a fresh install). lib/default-browser.py edits the LaunchServices
 # plist directly, replacing the unmaintained brew `defaultbrowser` binary.
