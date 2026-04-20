@@ -166,12 +166,17 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window: right" })
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.o.diff then return end
+    for _, arg in ipairs(vim.fn.argv()) do
+      if type(arg) == "string" and arg:find("/%.git/") then return end
+    end
     vim.cmd.filetype("detect")
     local ft = vim.bo.filetype
     if ft == "gitcommit" or ft == "gitrebase" or ft == "gitsendemail" then
       return
     end
-    vim.cmd("Neotree show")
+    if vim.fn.exists(":Neotree") == 2 then
+      vim.cmd("Neotree show")
+    end
   end,
 })
 
