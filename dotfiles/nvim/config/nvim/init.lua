@@ -1,5 +1,5 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
 local opt = vim.opt
 opt.number = true
@@ -91,13 +91,14 @@ require("lazy").setup({
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
+    cmd = "Neotree",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle file tree" },
+      { "<leader><Tab>", "<cmd>Neotree toggle<cr>", desc = "Toggle file tree" },
     },
     opts = {
       close_if_last_window = true,
@@ -159,9 +160,19 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window: right" })
 
 -- Open neo-tree on startup without stealing focus. `show` is idempotent,
 -- so it's safe if neo-tree's netrw hijack already opened the tree (e.g.
--- when nvim was launched against a directory).
+-- when nvim was launched against a directory). Force filetype detection
+-- first so the guard can reliably skip diff mode and short-lived git
+-- editor buffers (commit/rebase/merge) where the tree is just noise.
 vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function() vim.cmd("Neotree show") end,
+  callback = function()
+    if vim.o.diff then return end
+    vim.cmd.filetype("detect")
+    local ft = vim.bo.filetype
+    if ft == "gitcommit" or ft == "gitrebase" or ft == "gitsendemail" then
+      return
+    end
+    vim.cmd("Neotree show")
+  end,
 })
 
 -- Local, per-machine overrides. Sourced last so it can override anything above.
