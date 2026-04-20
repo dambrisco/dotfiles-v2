@@ -151,6 +151,19 @@ vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
 
+-- Directional window navigation. Overrides <C-l>'s default (redraw screen).
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window: left" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window: down" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window: up" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window: right" })
+
+-- Open neo-tree on startup without stealing focus. `show` is idempotent,
+-- so it's safe if neo-tree's netrw hijack already opened the tree (e.g.
+-- when nvim was launched against a directory).
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function() vim.cmd("Neotree show") end,
+})
+
 -- Local, per-machine overrides. Sourced last so it can override anything above.
 local local_config = vim.fn.stdpath("config") .. "/init.local.lua"
 if (vim.uv or vim.loop).fs_stat(local_config) then
