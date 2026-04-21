@@ -39,23 +39,6 @@ require("lazy").setup({
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    tag = "v0.10.0",
-    build = ":TSUpdate",
-    opts = {
-      ensure_installed = {
-        "bash", "c", "go", "javascript", "json", "lua", "markdown",
-        "python", "rust", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
@@ -151,6 +134,15 @@ require("lazy").setup({
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
+
+-- Enable built-in tree-sitter highlighting for any buffer whose filetype
+-- has a parser available on the runtimepath. `pcall` keeps filetypes
+-- without a parser quiet instead of erroring.
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
+})
 
 -- Directional window navigation. Overrides <C-l>'s default (redraw screen).
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window: left" })
