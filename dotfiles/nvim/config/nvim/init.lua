@@ -134,6 +134,7 @@ require("lazy").setup({
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
+vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
 -- Enable built-in tree-sitter highlighting for any buffer whose filetype
 -- has a parser available on the runtimepath. `pcall` keeps filetypes
