@@ -16,6 +16,10 @@ keybind = cmd+right_bracket=goto_split:next
 keybind = cmd+shift+enter=toggle_split_zoom
 keybind = cmd+w=close_surface
 
+# Jump between previous shell prompts (requires shell integration, default on).
+keybind = cmd+k=jump_to_prompt:-1
+keybind = cmd+j=jump_to_prompt:1
+
 # Global hotkey: drop-down terminal for a quick claude session.
 quick-terminal-position = top
 quick-terminal-animation-duration = 0.1
