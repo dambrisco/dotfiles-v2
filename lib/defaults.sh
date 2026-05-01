@@ -85,9 +85,16 @@ plutil -convert binary1 \
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.runningwithcrayons.Alfred.plist" \
   "$prefs_dir/alfred/Alfred.plist"
-open -b com.runningwithcrayons.Alfred 2>/dev/null || true
+pgrep -x Alfred >/dev/null || open -b com.runningwithcrayons.Alfred 2>/dev/null || true
 
 plutil -convert binary1 \
   -o "$HOME/Library/Preferences/com.knollsoft.Rectangle.plist" \
   "$prefs_dir/rectangle/Rectangle.plist"
-open -b com.knollsoft.Rectangle 2>/dev/null || true
+pgrep -x Rectangle >/dev/null || open -b com.knollsoft.Rectangle 2>/dev/null || true
+
+# Ghostty has no plist to seed (config is symlinked), so just ensure it's
+# launched after a fresh bootstrap. `pgrep -x ghostty` doesn't reliably see
+# the process on macOS — Launch Services does — so check via lsappinfo by
+# bundle ID instead.
+[[ -n "$(lsappinfo find "bundleID=com.mitchellh.ghostty" 2>/dev/null)" ]] \
+  || open -b com.mitchellh.ghostty 2>/dev/null || true
