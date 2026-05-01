@@ -13,6 +13,7 @@ brew "zsh-syntax-highlighting"
 brew "eza"
 brew "bat"
 brew "git-delta"
+brew "atuin"
 
 # Terminal + editor stack
 brew "neovim"
@@ -24,6 +25,7 @@ brew "fd"
 brew "stow"
 
 cask "ghostty"
+cask "claude-code@latest"
 cask "font-jetbrains-mono-nerd-font"
 
 cask "alfred"

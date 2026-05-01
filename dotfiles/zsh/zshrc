@@ -88,9 +88,18 @@ function zle-line-init {
 }
 zle -N zle-line-init
 
-# fzf keybindings (CTRL-R history, CTRL-T file, ALT-C cd) and completion.
+# fzf keybindings (CTRL-T file, ALT-C cd) and completion. CTRL-R is taken
+# over by atuin below so we get the richer history search.
 if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
+fi
+
+# atuin: searchable shell history with exit codes, durations, cwd. Sourced
+# after fzf so its CTRL-R bind wins. --disable-up-arrow keeps the plain
+# previous-command muscle memory; remove the flag if you want atuin's TUI
+# on up-arrow too.
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh --disable-up-arrow)"
 fi
 
 # Autosuggestions before syntax-highlighting; the latter must be sourced last
