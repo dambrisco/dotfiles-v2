@@ -17,8 +17,15 @@ autoload -Uz vcs_info
 # (not in zle-line-init, which fires too late) so hitting Enter from normal
 # mode drops you back to [I] on the next line.
 precmd() {
+  local last=$?
   vcs_info
   VI_MODE_INDICATOR='%F{green}[I]%f'
+  # Show exit status above the prompt on failure. _prompt_seen skips the
+  # first precmd (shell startup) so we don't print a stale 0 / non-zero.
+  if [[ -n $_prompt_seen ]] && (( last != 0 )); then
+    print -P "%F{red}✗ exit ${last}%f"
+  fi
+  _prompt_seen=1
 }
 zstyle ':vcs_info:git:*' formats ' (%b)'
 setopt PROMPT_SUBST
