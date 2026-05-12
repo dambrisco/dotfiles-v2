@@ -47,6 +47,7 @@ alias ll='eza -lah --git'
 alias la='eza -la'
 alias cat='bat --paging=never'
 alias gco='git checkout'
+alias dc="docker compose"
 
 # Ghostty ships shell integration it auto-injects via GHOSTTY_RESOURCES_DIR;
 # source it explicitly as a belt-and-suspenders for non-login shells.
