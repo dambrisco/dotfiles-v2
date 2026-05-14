@@ -35,6 +35,14 @@ defaults write com.apple.dock largesize -int 56
 # Mission Control / Expose: snappier animations (default ~0.2s).
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
+# Disable all hot corners. Action 1 = "No action"; modifier 0 clears any
+# required modifier key. System Settings writes these same values when each
+# corner is set to the dash.
+for corner in tl tr bl br; do
+  defaults write com.apple.dock "wvous-$corner-corner" -int 1
+  defaults write com.apple.dock "wvous-$corner-modifier" -int 0
+done
+
 killall Dock 2>/dev/null || true
 
 # Set Firefox as default browser, but only when the current default is Safari
