@@ -1,5 +1,6 @@
 {
   "includeCoAuthoredBy": true,
   "model": "opus[1m]",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "agentPushNotifEnabled": true
 }
