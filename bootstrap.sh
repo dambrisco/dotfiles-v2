@@ -2,7 +2,7 @@
 # Sole entrypoint. Safe to run in either mode:
 #
 #   Fresh laptop (no clone yet):
-#     bash -c "$(curl -fsSL https://raw.githubusercontent.com/dambrisco/dotfiles-v2/main/bootstrap.sh)"
+#     bash -c "$(curl -fsSL https://raw.githubusercontent.com/dambrisco/dotfiles/trunk/bootstrap.sh)"
 #
 #   From an existing checkout:
 #     ./bootstrap.sh [--debug] [--profile personal,work]
