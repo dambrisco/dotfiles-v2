@@ -1,4 +1,4 @@
-# dotfiles-v2
+# dotfiles
 
 Personal macOS dotfiles and bootstrap script.
 
@@ -9,7 +9,7 @@ Tools installer if needed), clones this repo into `~/dotfiles`, and
 bootstraps the machine:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/dambrisco/dotfiles-v2/main/bootstrap.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/dambrisco/dotfiles/trunk/bootstrap.sh)"
 ```
 
 ## Running from a checkout
@@ -17,7 +17,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/dambrisco/dotfiles-v2/ma
 Clone, then run `bootstrap.sh` directly:
 
 ```bash
-git clone https://github.com/dambrisco/dotfiles-v2.git ~/dotfiles
+git clone https://github.com/dambrisco/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap.sh [--debug] [--profile personal,work]
 ```
@@ -34,7 +34,7 @@ new env/aliases take effect immediately.
 
 ### Environment variables
 
-- `DOTFILES_BRANCH` — branch to check out (default: `main`).
+- `DOTFILES_BRANCH` — branch to check out (default: `trunk`).
 - `DOTFILES_DIR` — clone destination (default: `$HOME/dotfiles`).
 
 ## What it does
