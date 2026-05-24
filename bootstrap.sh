@@ -17,8 +17,8 @@
 #   7. Apply macOS defaults and Alfred prefs.
 set -eu -o pipefail
 
-REPO="dambrisco/dotfiles-v2"
-BRANCH="${DOTFILES_BRANCH:-main}"
+REPO="dambrisco/dotfiles"
+BRANCH="${DOTFILES_BRANCH:-trunk}"
 CLONE_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
 # --- Detect execution mode -------------------------------------------------
