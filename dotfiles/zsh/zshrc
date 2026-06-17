@@ -39,7 +39,7 @@ RPROMPT='${VI_MODE_INDICATOR}'
 setopt TRANSIENT_RPROMPT
 
 # Aliases.
-alias cc='claude --effort max'
+alias cc='claude --effort max --permission-mode auto'
 alias vi='nvim'
 alias vim='nvim'
 alias ls='eza'
