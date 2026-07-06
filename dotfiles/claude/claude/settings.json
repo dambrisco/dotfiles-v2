@@ -24,6 +24,7 @@
     "auth0@claude-plugins-official": true,
     "notion@claude-plugins-official": true
   },
+  "fastMode": true,
   "skipWorkflowUsageWarning": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
