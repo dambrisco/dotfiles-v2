@@ -81,7 +81,7 @@ wires matching configs into `~/.gitconfig.d/includes`, which the tracked
 - `bootstrap.sh` — sole entrypoint.
 - `brew/` — Brewfiles per profile.
 - `dotfiles/` — files symlinked into `$HOME` (claude, ghostty, git, local,
-  nvim, zsh). A file at `dotfiles/<pkg>/<first>/<rest>` maps to
+  nvim, psql, zsh). A file at `dotfiles/<pkg>/<first>/<rest>` maps to
   `$HOME/.<first>/<rest>`.
 - `lib/` — helper scripts: `local.sh`, `link.sh`,
   `gen-gitconfig-includes.sh`, `claude.sh`, `defaults.sh`,
