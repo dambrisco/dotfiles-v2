@@ -40,6 +40,7 @@ setopt TRANSIENT_RPROMPT
 
 # Aliases.
 alias cc='claude --effort max --permission-mode auto'
+alias ccd='claude --effort max --dangerously-skip-permissions'
 alias vi='nvim'
 alias vim='nvim'
 alias ls='eza'
