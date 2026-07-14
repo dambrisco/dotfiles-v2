@@ -25,6 +25,7 @@ brew "fd"
 brew "stow"
 
 cask "ghostty"
+cask "cmux"
 cask "claude-code@latest"
 cask "font-jetbrains-mono-nerd-font"
 
