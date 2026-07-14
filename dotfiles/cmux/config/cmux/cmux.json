@@ -1,16 +1,4 @@
 {
   "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
-  "schemaVersion": 1,
-
-  // Terminal look/feel and keybinds come from ~/.config/ghostty/config, which
-  // cmux reads directly; `cmux reload-config` reloads both files. Default cmux
-  // shortcuts already match the ghostty split keybinds (cmd+d, cmd+shift+d,
-  // cmd+shift+enter, cmd+w), so only deltas from cmux defaults belong here.
-  // Keys absent from this file fall back to the Settings UI, which acts as the
-  // per-machine override layer.
-
-  "terminal": {
-    // Mirrors ghostty `copy-on-select = clipboard`; cmux defaults to false.
-    "copyOnSelect": true
-  }
+  "schemaVersion": 1
 }
