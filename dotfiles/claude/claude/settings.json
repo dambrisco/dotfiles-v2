@@ -19,7 +19,6 @@
     "linear@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "mcp-server-dev@claude-plugins-official": true,
-    "sourcegraph@claude-plugins-official": true,
     "prisma@claude-plugins-official": true,
     "auth0@claude-plugins-official": true,
     "notion@claude-plugins-official": true
